@@ -123,9 +123,10 @@ def multi_drone_mission(func):
     for n in range(4):
         def f():
             move_through_area(func, ((n//2) * world_size / 2, (n % 2) * world_size / 2), world_size / 2, world_size / 2)
-        spawn_drone(f)
         if n == 3:
             f()
+        else:
+            spawn_drone(f)
     while num_drones() != 1:
         pass
 
@@ -133,8 +134,10 @@ def __multi_drone_mission(func):
     for n in range(4):
         def f():
             func(((n//2) * world_size / 2, (n % 2) * world_size / 2), world_size / 2, world_size / 2)
-        if not spawn_drone(f):
+        if n == 3:
             f()
+        else:
+            spawn_drone(f)
     while num_drones() != 1:
         pass
 
