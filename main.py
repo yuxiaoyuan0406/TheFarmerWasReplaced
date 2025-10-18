@@ -48,7 +48,8 @@ def main():
                 # utils.untill_everything()
                 pass
             elif system_state == PUMPKIN:
-                utils.till_everything()
+                # utils.till_everything()
+                pass
             state_changing = False
 
         # Farm
