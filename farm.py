@@ -17,12 +17,15 @@ def farm_1():
         # a = [4,2,0,-2,-4]
         # return get_pos_x() - get_pos_y() in a
         return (get_pos_x() + get_pos_y()) % 2 == 0
+    def tree_sellector():
+        x,y = utils.get_coor()
+        return x+y == utils.world_size - 1 or x+y == utils.world_size + 1 or x+y == utils.world_size - 3
     if carrot_sellector():
         if get_ground_type() != Grounds.Soil:
             till()
         plant(Entities.Carrot)
         utils.water()
-    elif get_pos_x() + get_pos_y() == get_world_size() - 1:
+    elif tree_sellector():
         plant(Entities.Tree)
     else:
         if get_ground_type() != Grounds.Grassland:
@@ -37,7 +40,6 @@ def farm_2():
 
 def farm_3():
     # Farm 3 grows pumpkins.
-    # Need all land to be tilled
     def f():
         if get_ground_type() != Grounds.Soil:
             till()
