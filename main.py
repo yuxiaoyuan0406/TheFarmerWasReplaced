@@ -54,19 +54,7 @@ def main():
 
         # Farm
         if system_state == CARROT:
-            # utils.move_through_farm(farm.farm_1)
-            for n in range(4):
-                def farm_carrot():
-                    utils.move_through_area(
-                        farm.farm_1,
-                        ((n // 2) * get_world_size() / 2, (n % 2) * get_world_size() / 2),
-                        get_world_size() / 2, get_world_size() / 2)
-                if spawn_drone(farm_carrot):
-                    pass
-                else:
-                    farm_carrot()
-                    while num_drones() != 1:
-                        pass
+            utils.multi_drone_mission(farm.farm_1)
         elif system_state == PUMPKIN:
             farm.farm_3()
 
