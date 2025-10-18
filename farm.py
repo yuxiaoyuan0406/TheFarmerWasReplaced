@@ -24,6 +24,9 @@ def farm_1():
         utils.water()
     elif get_pos_x() + get_pos_y() == get_world_size() - 1:
         plant(Entities.Tree)
+    else:
+        if get_ground_type() != Grounds.Grassland:
+            till()
 
 def farm_2():
     # Farm 2 grows carrots.
@@ -36,6 +39,13 @@ def farm_3():
     # Farm 3 grows pumpkins.
     # Need all land to be tilled
     def f():
+        if get_ground_type() != Grounds.Soil:
+            till()
+        elif get_entity_type() != None:
+            harvest()
+            if get_entity_type() != None:
+                till()
+                till()
         plant(Entities.Pumpkin)
     utils.multi_drone_mission(f)
 
