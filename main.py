@@ -3,10 +3,10 @@ import farm
 
 def carrot_condition():
     # return True
-    return utils.item_counter[Items.Carrot] < (get_world_size() ** 2 * 100)
+    return utils.item_counter[Items.Carrot] < (get_world_size() ** 2 * 1000)
 
 def exit_carrot_condition():
-    return utils.item_counter[Items.Carrot] > (get_world_size() ** 2 * 1000)
+    return utils.item_counter[Items.Carrot] > (get_world_size() ** 2 * 10000)
 
 CARROT = 0
 PUMPKIN = 1
