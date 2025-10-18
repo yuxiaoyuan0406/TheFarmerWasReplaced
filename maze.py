@@ -31,9 +31,9 @@ def init():
         
 def main():
     init()
-    for i in range(1):
-        find_treasure()
-        use_substance()
+    # for i in range(1):
+    #     find_treasure()
+    #     use_substance()
     find_treasure()
     harvest()
 
