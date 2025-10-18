@@ -53,7 +53,7 @@ def farm_3():
 
     pumpkin.check_for_dead()
     harvest()
-    utils.move_to_origin()
+    # utils.move_to_origin()
 
 if __name__ == "__main__":
     # utils.harvest_everything()
