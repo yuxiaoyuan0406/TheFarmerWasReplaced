@@ -123,7 +123,7 @@ def harvest_everything():
     multi_drone_mission(harvest)
     # move_to_origin()
 
-def multi_drone_mission(func):
+def multi_drone_mission(func, main_drone_func = None):
     for n in range(16):
         def f():
             move_through_area(
@@ -132,13 +132,16 @@ def multi_drone_mission(func):
                 world_size / 4,
                 world_size / 4)
         if n == 15:
-            f()
+            if main_drone_func == None:
+                f()
+            else:
+                main_drone_func()
         else:
             spawn_drone(f)
     while num_drones() != 1:
         pass
 
-def __multi_drone_mission(func):
+def __multi_drone_mission(func, main_drone_func = None):
     for n in range(16):
         def f():
             func(
@@ -146,7 +149,13 @@ def __multi_drone_mission(func):
                 world_size / 4,
                 world_size / 4)
         if n == 15:
-            f()
+            if main_drone_func == None:
+                f()
+            else:
+                main_drone_func(
+                    ((n//4) * world_size / 4,(n % 4) * world_size / 4),
+                    world_size / 4,
+                    world_size / 4)
         else:
             spawn_drone(f)
     while num_drones() != 1:
