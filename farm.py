@@ -41,16 +41,7 @@ def farm_2():
 
 def farm_3():
     # Farm 3 grows pumpkins.
-    def f():
-        if get_ground_type() != Grounds.Soil:
-            till()
-        elif get_entity_type() != None:
-            harvest()
-            if get_entity_type() != None:
-                till()
-                till()
-        plant(Entities.Pumpkin)
-    utils.multi_drone_mission(f)
+    utils.multi_drone_mission(pumpkin.__plant)
 
     pumpkin.check_for_dead()
     harvest()
