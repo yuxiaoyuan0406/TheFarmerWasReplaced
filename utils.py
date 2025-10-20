@@ -1,4 +1,4 @@
-WATER_THRESHOLD = 0.6
+WATER_THRESHOLD = 0.5
 
 world_size = get_world_size()
 item_counter = dict()
@@ -17,7 +17,7 @@ def water():
     if num_items(Items.Water) < 10:
         return
     while get_water() <= WATER_THRESHOLD:
-        use_item(Items.Water)
+        use_item(Items.Water, 2)
 
 def harvest_if_able(entity_type=None):
     if can_harvest():
