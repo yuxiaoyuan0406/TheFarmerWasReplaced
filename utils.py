@@ -31,6 +31,10 @@ def wait_s(n):
     for i in range(n):
         do_a_flip()
 
+def wait_tick(n):
+    for i in range(n):
+        pass
+
 def rev_dir(dir):
     if dir == North:
         return South
