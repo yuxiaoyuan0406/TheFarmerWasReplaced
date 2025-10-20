@@ -27,6 +27,7 @@ def farm_1():
         utils.water()
     elif tree_sellector():
         plant(Entities.Tree)
+        utils.water()
     else:
         if get_ground_type() != Grounds.Grassland:
             till()
