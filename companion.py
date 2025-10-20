@@ -1,5 +1,10 @@
 import utils
 
+comp_list = [Entities.Grass, Entities.Bush, Entities.Tree, Entities.Carrot]
+
+def __random_entity():
+    return comp_list[random() * len(comp_list) // 1]
+
 def plant_at(entity, coor):
     _coor = utils.get_coor()
     utils.move_to(coor)
@@ -8,17 +13,10 @@ def plant_at(entity, coor):
         return
     if get_entity_type() != None:
         harvest()
-    if entity == Entities.Grass or entity == Entities.Bush:
-        if get_ground_type() != Grounds.Grassland:
-            till()
-    else:
-        if get_ground_type() != Grounds.Soil:
-            till()
-    if entity != Entities.Grass:
-        plant(entity)
+    __plant(entity)
     utils.move_to(_coor)
 
-def _plant(entity):
+def __plant(entity):
     if entity == Entities.Grass or entity == Entities.Bush:
         if get_ground_type() != Grounds.Grassland:
             till()
@@ -28,7 +26,8 @@ def _plant(entity):
     
     if entity != Entities.Grass:
         plant(entity)
-    
+
+    utils.water()
 
 def main():
     # utils.harvest_everything()
@@ -121,57 +120,48 @@ def plant_companion():
     else:
         pass
 
-    _plant(comp_type)
+    __plant(comp_type)
 
 def plant_with_companion(entity):
     utils.water()
-    _plant(entity)
+    __plant(entity)
     plant_companion()
-
 
 def minimum_centering_companion(entity, center_coor):
     utils.move_to(center_coor)
     plant_with_companion(entity)
 
-def mult_drone(entity):
-    world_size = get_world_size()
-    center_list = []
-    for i in range(world_size // 7):
-        for j in range(world_size // 7):
-            center_list.append((i*7+3, j*7+3))
+def single_block_companion_mission(entity, coor, width, height):
+    plant_point_list = []
+    for i in range(width // 8):
+        for j in range(height // 8):
+            plant_point_list.append((coor[0] + i * 8 + 3, coor[1] + j * 8 + 3))
+            plant_point_list.append((coor[0] + i * 8 + 7, coor[1] + j * 8 + 7))
 
-    # quick_print(center_list)
-    def sub():
-        change_hat(Hats.Purple_Hat)
-        while True:
-            for coor in center_list:
-                utils.move_to(coor)
-                if can_harvest():
-                    plant_companion()
-                    utils.move_to(coor)
-                    harvest()
-                    plant(entity)
+    for center in plant_point_list:
+        utils.move_to(center)
+        if can_harvest():
+            plant_companion()
+            utils.move_to(center)
+            harvest()
+        __plant(entity)
+        if entity == Entities.Tree:
+            use_item(Items.Fertilizer)
 
-    spawn_drone(sub)
-    utils.wait_s(2)
-    spawn_drone(sub)
-    utils.wait_s(2)
-    # spawn_drone(sub)
-    # utils.wait_s(2)
+def multi_drone(entity=None):
+    def f(coor, width, height):
+        __entity = entity
+        if __entity == None:
+            __entity = __random_entity()
+        single_block_companion_mission(__entity, coor, width, height)
+    utils.__multi_drone_mission(f)
 
-    while True:
-        for coor in center_list:
-            utils.move_to(coor)
-            utils.water()
-            _plant(entity)
-            if entity == Entities.Tree:
-                use_item(Items.Fertilizer)
 
-        
 if __name__ == "__main__":
     # utils.harvest_everything()
     clear()
-    mult_drone(Entities.Tree)
+    while True:
+        multi_drone(Entities.Carrot)
 
     # world_size = get_world_size()
     # center_list = []
