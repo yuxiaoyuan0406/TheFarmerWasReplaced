@@ -12,27 +12,27 @@ def g(dir):
             return
         move(dir)
 
-def fill_cactus():
-    def _():
-        if get_ground_type() != Grounds.Soil:
-            if get_entity_type() != Entities.Cactus:
-                till()
-            else:
-                return
+def __plant():
+    if get_ground_type() != Grounds.Soil:
+        if get_entity_type() != Entities.Cactus:
+            till()
         else:
-            if get_entity_type() != Entities.Cactus:
-                harvest()
-                if get_entity_type() != None:
-                    till()
-                    till()
-            else:
-                return
+            return
+    else:
+        if get_entity_type() != Entities.Cactus:
+            harvest()
+            if get_entity_type() != None:
+                till()
+                till()
+        else:
+            return
+    plant(Entities.Cactus)
 
-        plant(Entities.Cactus)
-    utils.multi_drone_mission(_)
 
-def farm():
-    fill_cactus()
+def fill_cactus():
+    utils.multi_drone_mission(__plant)
+
+def sort():
     utils.move_to_origin()
     def h():
         g(North)
@@ -51,6 +51,11 @@ def farm():
         move(North)
     while num_drones()!=1:
         pass
+    
+
+def farm():
+    fill_cactus()
+    sort()
     harvest()
 
 if __name__ == "__main__":
