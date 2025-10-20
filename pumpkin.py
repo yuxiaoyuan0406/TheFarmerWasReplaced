@@ -3,6 +3,16 @@ import utils
 def is_grown_pumpkin():
     return get_entity_type() == Entities.Pumpkin and can_harvest()
 
+def __plant():
+    if get_ground_type() != Grounds.Soil:
+        till()
+    elif get_entity_type() != None:
+        harvest()
+        if get_entity_type() != None:
+            till()
+            till()
+    plant(Entities.Pumpkin)
+
 def __check_for_dead(coor, width, height):
     dead_pk_coor = []
     def f():
