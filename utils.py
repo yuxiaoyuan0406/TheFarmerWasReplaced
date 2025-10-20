@@ -50,7 +50,9 @@ def move_steps(dir, steps):
         steps = - steps
         dir = rev_of[dir]
     for i in range(steps):
-        move(dir)
+        if not move(dir):
+            return False
+    return True
 
 def get_coor():
     return get_pos_x(), get_pos_y()
@@ -75,9 +77,12 @@ def move_to(coor):
         return dir, diff
     
     dir, diff = f(East, x, _x)
-    move_steps(dir, diff)
+    if not move_steps(dir, diff):
+        return False
     dir, diff = f(North, y, _y)
-    move_steps(dir, diff)
+    if not move_steps(dir, diff):
+        return False
+    return True
 
 def move_to_origin():
     move_to((0,0))
